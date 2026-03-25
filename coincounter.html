@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coin Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 16px;
+      width: 280px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .coin {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+      padding: 8px;
+      border-radius: 8px;
+      background: #334155;
+    }
+
+    .total {
+      margin-top: 16px;
+      padding: 10px;
+      text-align: center;
+      border-radius: 10px;
+      background: #22c55e;
+      color: #022c22;
+      font-weight: bold;
+    }
+
+    .hint {
+      font-size: 12px;
+      margin-top: 10px;
+      text-align: center;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Receh Counter</h2>
+
+    <div class="coin" data-value="100">
+      <span>Rp100</span>
+      <span class="count">0</span>
+    </div>
+
+    <div class="coin" data-value="200">
+      <span>Rp200</span>
+      <span class="count">0</span>
+    </div>
+
+    <div class="coin" data-value="500">
+      <span>Rp500</span>
+      <span class="count">0</span>
+    </div>
+
+    <div class="coin" data-value="1000">
+      <span>Rp1000</span>
+      <span class="count">0</span>
+    </div>
+
+    <div class="total" id="total">Total: Rp0</div>
+
+    <div class="hint">Ctrl + 1/2/3/4 to add coins</div>
+  </div>
+
+  <script>
+    const coins = document.querySelectorAll('.coin');
+    let total = 0;
+
+    function updateTotal() {
+      document.getElementById('total').innerText = 'Total: Rp' + total.toLocaleString();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (!e.ctrlKey) return;
+
+      let index = null;
+      if (e.key === 'a') index = 0;
+      if (e.key === 'b') index = 1;
+      if (e.key === 'c') index = 2;
+      if (e.key === 'e') index = 3;
+
+      if (index !== null) {
+        const coin = coins[index];
+        const countEl = coin.querySelector('.count');
+        let count = parseInt(countEl.innerText);
+
+        count++;
+        countEl.innerText = count;
+
+        total += parseInt(coin.dataset.value);
+        updateTotal();
+      }
+    });
+  </script>
+</body>
+</html>
